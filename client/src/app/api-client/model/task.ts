@@ -1,5 +1,5 @@
 /**
- * SlotMachine API
+ * IczTask API
  *
  * 
  *

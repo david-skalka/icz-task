@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 README.md
 api.base.service.ts
 api.module.ts
@@ -8,6 +7,8 @@ api/auth.service.ts
 api/auth.serviceInterface.ts
 api/task.service.ts
 api/task.serviceInterface.ts
+api/user.service.ts
+api/user.serviceInterface.ts
 configuration.ts
 encoder.ts
 git_push.sh

@@ -11,23 +11,20 @@ import { HttpHeaders }                                       from '@angular/comm
 
 import { Observable }                                        from 'rxjs';
 
-import { LoginRequest } from '../model/models';
-import { LoginResponse } from '../model/models';
 
 
 import { Configuration }                                     from '../configuration';
 
 
 
-export interface AuthApiServiceInterface {
+export interface UserApiServiceInterface {
     defaultHeaders: HttpHeaders;
     configuration: Configuration;
 
     /**
      * 
      * 
-     * @param loginRequest 
      */
-    apiAuthLoginPost(loginRequest?: LoginRequest, extraHttpRequestParams?: any): Observable<LoginResponse>;
+    apiUserMeGet(extraHttpRequestParams?: any): Observable<string>;
 
 }

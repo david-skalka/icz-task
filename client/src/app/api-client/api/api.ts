@@ -4,4 +4,7 @@ export * from './auth.serviceInterface';
 export * from './task.service';
 import { TaskApiService } from './task.service';
 export * from './task.serviceInterface';
-export const APIS = [AuthApiService, TaskApiService];
+export * from './user.service';
+import { UserApiService } from './user.service';
+export * from './user.serviceInterface';
+export const APIS = [AuthApiService, TaskApiService, UserApiService];
