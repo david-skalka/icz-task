@@ -53,15 +53,15 @@ import { Task, TaskApiService } from '../../../api-client';
     <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
   </mat-dialog-actions>
 </form>
-<div *ngIf="addErrors.length" style="color: #f44336; font-size: 12px; padding: 8px 24px 16px;">
+<div *ngIf="errors.length" style="color: #f44336; font-size: 12px; padding: 8px 24px 16px;">
   <ul style="margin: 0; padding-left: 1.25em;">
-    <li *ngFor="let err of addErrors">{{ err }}</li>
+    <li *ngFor="let err of errors">{{ err }}</li>
   </ul>
 </div>
   `
 })
 export class UserEditDialog {
-  addErrors: string[] = [];
+  errors: string[] = [];
 
   private api = inject(TaskApiService);
   private dialogRef = inject(MatDialogRef);
@@ -69,7 +69,7 @@ export class UserEditDialog {
 
   save(form: NgForm) {
     if (form.invalid) return;
-    this.addErrors = [];
+    this.errors = [];
     const user = this.data.user;
     const payload: Task = {
       name: user.name,
@@ -88,7 +88,7 @@ export class UserEditDialog {
       error: (err) => {
         if (err.status === 400) {
           const errorDetails = err.error?.errors;
-          this.addErrors = Object.values(errorDetails).flat() as string[];
+          this.errors = Object.values(errorDetails).flat() as string[];
 
         }
       }
