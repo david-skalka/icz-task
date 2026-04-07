@@ -47,20 +47,21 @@ import { Task, TaskApiService } from '../../../api-client';
     </mat-checkbox>
   </div>
 
-  <div *ngIf="addError" style="color: #f44336; font-size: 12px; padding: 0 16px;">
-    {{ addError }}
-  </div>
-
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button type="button" (click)="cancel()">Cancel</button>
     <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
   </mat-dialog-actions>
 </form>
+<div *ngIf="addErrors.length" style="color: #f44336; font-size: 12px; padding: 8px 24px 16px;">
+  <ul style="margin: 0; padding-left: 1.25em;">
+    <li *ngFor="let err of addErrors">{{ err }}</li>
+  </ul>
+</div>
   `
 })
 export class UserEditDialog {
-  addError: string | null = null;
+  addErrors: string[] = [];
 
   private api = inject(TaskApiService);
   private dialogRef = inject(MatDialogRef);
@@ -68,7 +69,7 @@ export class UserEditDialog {
 
   save(form: NgForm) {
     if (form.invalid) return;
-    this.addError = null;
+    this.addErrors = [];
     const user = this.data.user;
     const payload: Task = {
       name: user.name,
@@ -86,10 +87,8 @@ export class UserEditDialog {
       next: () => this.dialogRef.close(true),
       error: (err) => {
         if (err.status === 400) {
-
-            const errorDetails = err.error.errors;
-            const messages = Object.values(errorDetails).flat();
-            this.addError = messages.join('\n');
+          const errorDetails = err.error?.errors;
+          this.addErrors = Object.values(errorDetails).flat() as string[];
 
         }
       }
