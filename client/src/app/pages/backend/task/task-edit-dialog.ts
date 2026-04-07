@@ -22,50 +22,35 @@ import { Task, TaskApiService } from '../../../api-client';
     MatCheckboxModule,
     FormsModule
   ],
-  styles: [`
-    .dialog-content {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      align-items: center;
-      padding-top: 0.5rem;
-    }
-
-    mat-form-field {
-      width: 100%;
-      max-width: 400px;
-    }
-  `],
   template: `
 <h2 mat-dialog-title>{{ data.user.id ? 'Edit Task' : 'New Task' }}</h2>
 
-<form #form="ngForm" class="dialog-content" (ngSubmit)="save(form)">
+<form #form="ngForm" (ngSubmit)="save(form)">
 <mat-dialog-content>
-<mat-form-field appearance="fill">
-    <mat-label>Name</mat-label>
-    <input matInput [(ngModel)]="data.user.name" name="name" required>
-    <mat-error *ngIf="form.submitted && form.controls['name']?.invalid">
-      Name is required
-    </mat-error>
-  </mat-form-field>
+  <div>
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="data.user.name" name="name">
+    </mat-form-field>
+  </div>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Description</mat-label>
-    <input
-      matInput
-      [(ngModel)]="data.user.description"
-      name="description"
-      required
-    >
-  </mat-form-field>
+  <div>
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Description</mat-label>
+      <input matInput [(ngModel)]="data.user.description" name="description">
+    </mat-form-field>
+  </div>
 
-  <mat-checkbox [(ngModel)]="data.user.finished" name="finished">
-    Finished
-  </mat-checkbox>
+  <div>
+    <mat-checkbox [(ngModel)]="data.user.finished" name="finished">
+      Finished
+    </mat-checkbox>
+  </div>
 
-  <div *ngIf="addError" class="error-message" style="color: red; padding-top: 8px;">
+  <div *ngIf="addError" style="color: #f44336; font-size: 12px; padding: 0 16px;">
     {{ addError }}
   </div>
+
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button type="button" (click)="cancel()">Cancel</button>
