@@ -1,6 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using IczTask;
-using IczTask.Models;
+using Microsoft.EntityFrameworkCore;
 using Task = IczTask.Models.Task;
 
 namespace IczTaskTest.Integration.Seeders;

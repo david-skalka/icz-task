@@ -1,10 +1,10 @@
+using IczTask;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using IczTask;
 
 namespace IczTaskTest.Integration.Infrastructure;
 
@@ -51,10 +51,8 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);
-        if (disposing)
-        {
-            _connection.Close();
-            _connection.Dispose();
-        }
+        if (!disposing) return;
+        _connection.Close();
+        _connection.Dispose();
     }
 }

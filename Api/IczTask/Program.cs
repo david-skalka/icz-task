@@ -1,9 +1,9 @@
 using System.Text;
+using IczTask.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using IczTask.Options;
 
 namespace IczTask;
 
@@ -54,12 +54,11 @@ public class Program
             });
         });
 
-        var test = builder.Configuration.GetConnectionString("TaskDb");
+        
         if (!builder.Environment.IsEnvironment("Integration"))
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 {
                     options.UseSqlite(builder.Configuration.GetConnectionString("TaskDb"));
-                    
                 }
             );
 

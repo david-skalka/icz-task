@@ -1,9 +1,9 @@
 using System.Net.Http.Json;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.DependencyInjection;
 using IczTask;
 using IczTaskTest.Integration.Infrastructure;
 using IczTaskTest.Integration.Seeders;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.DependencyInjection;
 using Task = IczTask.Models.Task;
 
 namespace IczTaskTest.Integration;
@@ -36,28 +36,24 @@ public class TaskTests
                 );
         }
 
-        if (TestContext.CurrentContext.Test.Properties.Get("MockUser") is string userInfo)
-        {
-            var parts = userInfo.Split(';');
-            _factory
-                .Services.GetRequiredService<TestAuthHandlerUserProvider>().SetUser(parts[0], parts[1].Split(","));
-        }
+        if (TestContext.CurrentContext.Test.Properties.Get("MockUser") is not string userInfo) return;
+        var parts = userInfo.Split(';');
+        _factory
+            .Services.GetRequiredService<TestAuthHandlerUserProvider>().SetUser(parts[0], parts[1].Split(","));
     }
 
 
     [TearDown]
     public void MockTeardown()
     {
-        if (TestContext.CurrentContext.Test.Properties.Get("Seeder") is string seeder)
-        {
-            var seederInstance = (ISeeder)Activator.CreateInstance(Type.GetType(seeder)!)!;
-            seederInstance
-                .Clear(
-                    _factory
-                        .Services.CreateScope()
-                        .ServiceProvider.GetRequiredService<ApplicationDbContext>()
-                );
-        }
+        if (TestContext.CurrentContext.Test.Properties.Get("Seeder") is not string seeder) return;
+        var seederInstance = (ISeeder)Activator.CreateInstance(Type.GetType(seeder)!)!;
+        seederInstance
+            .Clear(
+                _factory
+                    .Services.CreateScope()
+                    .ServiceProvider.GetRequiredService<ApplicationDbContext>()
+            );
     }
 
 
@@ -78,8 +74,8 @@ public class TaskTests
             new Task { Name = "Task2", Description = "654321456", Finished = false });
         defaultPage.EnsureSuccessStatusCode();
     }
-    
-    
+
+
     [Test]
     [Property("Seeder", "IczTaskTest.Integration.Seeders.DefaultSeeder")]
     [Property("MockUser", "admin;Admin")]
@@ -89,8 +85,7 @@ public class TaskTests
             new Task { Name = "Task2", Description = "654321456", Finished = false });
         defaultPage.EnsureSuccessStatusCode();
     }
-    
-    
+
 
     [Test]
     [Property("Seeder", "IczTaskTest.Integration.Seeders.DefaultSeeder")]
@@ -112,7 +107,6 @@ public class TaskTests
         var defaultPage = await _client.GetAsync("/api/Task");
         defaultPage.EnsureSuccessStatusCode();
     }
-
 
 
     [Test]

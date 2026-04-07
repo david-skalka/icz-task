@@ -6,12 +6,13 @@ public class Task
 {
     public int Id { get; init; }
 
-    [Required] [MinLength(5)] [MaxLength(255)] public string Name { get; init; } = string.Empty;
-
-
     [Required]
+    [MinLength(5)]
     [MaxLength(255)]
-    public string Description { get; set; } = string.Empty;
+    public string Name { get; init; } = string.Empty;
+
+
+    [Required] [MaxLength(255)] public string Description { get; set; } = string.Empty;
 
     public bool Finished { get; set; }
 }

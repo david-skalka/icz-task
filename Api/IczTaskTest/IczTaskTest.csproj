@@ -25,7 +25,7 @@
 
 
     <ItemGroup>
-        <ProjectReference Include="..\IczTask\IczTask.csproj" />
+        <ProjectReference Include="..\IczTask\IczTask.csproj"/>
     </ItemGroup>
 
     <PropertyGroup>
