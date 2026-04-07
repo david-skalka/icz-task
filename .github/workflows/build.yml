@@ -41,27 +41,27 @@ jobs:
 
       - name: Copy Angular build to API wwwroot
         run: |
-          mkdir -p ./Api/IczTask/wwwroot
-          cp -r ./client/dist/slot-machine/browser/* ./Api/IczTask/wwwroot/
+          mkdir -p ./Api/BackendApp/wwwroot
+          cp -r ./client/dist/frontend-app/browser/* ./Api/BackendApp/wwwroot/
 
       - name: Restore .NET dependencies
         working-directory: ./Api
-        run: dotnet restore IczTask.sln
+        run: dotnet restore BackendApp.sln
 
       - name: Run .NET tests
         working-directory: ./Api
-        run: dotnet test IczTask.sln --configuration Release --no-restore --logger "trx;LogFileName=test_results.trx"
+        run: dotnet test BackendApp.sln --configuration Release --no-restore --logger "trx;LogFileName=test_results.trx"
 
       - name: Build .NET solution
         working-directory: ./Api
-        run: dotnet build IczTask.sln --configuration Release --no-restore
+        run: dotnet build BackendApp.sln --configuration Release --no-restore
 
       - name: Publish .NET project
-        working-directory: ./Api/IczTask
+        working-directory: ./Api/BackendApp
         run: dotnet publish -c Release -o ./bin/Release/net9.0/publish --no-build
 
       - name: Upload publish artifact
         uses: actions/upload-artifact@v4
         with:
-          name: icztask-api
-          path: ./Api/IczTask/bin/Release/net9.0/publish
+          name: backendapp-api
+          path: ./Api/BackendApp/bin/Release/net9.0/publish

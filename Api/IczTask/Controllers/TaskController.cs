@@ -1,55 +1,53 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Task = IczTask.Models.Task;
+using Microsoft.EntityFrameworkCore;
+using TaskEntity = IczTask.Models.Task;
 
 namespace IczTask.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class TaskController(ApplicationDbContext dbContext, ILogger<TaskController> logger) : ControllerBase
+public class TaskController(ApplicationDbContext dbContext) : ControllerBase
 {
     [HttpPost]
     [Authorize(Roles = "Admin")]
-    public Task Create(Task task)
+    public async Task<ActionResult<TaskEntity>> Create([FromBody] TaskEntity task, CancellationToken cancellationToken)
     {
-        
         var retD = dbContext.Tasks.Add(task).Entity;
-        dbContext.SaveChanges();
+        await dbContext.SaveChangesAsync(cancellationToken);
         return retD;
     }
-
 
     [HttpPut]
     [Authorize(Roles = "Admin")]
-    public Task Update(Task task)
+    public async Task<ActionResult<TaskEntity>> Update([FromBody] TaskEntity task, CancellationToken cancellationToken)
     {
         var retD = dbContext.Tasks.Update(task).Entity;
-        dbContext.SaveChanges();
+        await dbContext.SaveChangesAsync(cancellationToken);
         return retD;
     }
 
-
     [HttpGet("{id:int}")]
     [Authorize(Roles = "Admin")]
-    public Task GetById(int id)
+    public async Task<ActionResult<TaskEntity>> GetById(int id, CancellationToken cancellationToken)
     {
-        return dbContext.Tasks.Single(x => x.Id == id);
+        return await dbContext.Tasks.SingleAsync(x => x.Id == id, cancellationToken);
     }
 
     [HttpGet]
     [Authorize(Roles = "Admin")]
-    public IEnumerable<Task> GetAll()
+    public async Task<ActionResult<List<TaskEntity>>> GetAll(CancellationToken cancellationToken)
     {
-        return dbContext.Tasks.ToList();
+        return await dbContext.Tasks.ToListAsync(cancellationToken);
     }
-
 
     [HttpDelete("{id:int}")]
     [Authorize(Roles = "Admin")]
-    public void Delete(int id)
+    public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
     {
-        var user = dbContext.Tasks.Single(x => x.Id == id);
-        dbContext.Tasks.Remove(user);
-        dbContext.SaveChanges();
+        var entity = await dbContext.Tasks.SingleAsync(x => x.Id == id, cancellationToken);
+        dbContext.Tasks.Remove(entity);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return NoContent();
     }
 }
