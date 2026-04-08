@@ -66,7 +66,7 @@ export class TaskEditDialog {
   constructor() {
     this.form = this.fb.group({
       id: [null as number | null],
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.minLength(5)]],
       description: ['', []],
       finished: [false]
     });
