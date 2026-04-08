@@ -72,7 +72,8 @@ public class TaskController(
     [Authorize]
     public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
     {
-        var entity = await dbContext.Tasks.SingleAsync(x => x.Id == id, cancellationToken);
+        var entity = await dbContext.Tasks.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+        if (entity is null) return NotFound();
         dbContext.Tasks.Remove(entity);
         await dbContext.SaveChangesAsync(cancellationToken);
         await cache.RemoveByTagAsync(TaskCacheTag, cancellationToken);

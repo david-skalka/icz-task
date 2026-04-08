@@ -141,4 +141,14 @@ public class TaskTests
         var defaultPage = await _client.DeleteAsync("/api/tasks/1");
         defaultPage.EnsureSuccessStatusCode();
     }
+
+
+    [Test]
+    [Property("Seeder", "IczTaskTest.Integration.Seeders.DefaultSeeder")]
+    [Property("MockUser", "admin;Admin")]
+    public async System.Threading.Tasks.Task Delete_NotFound_WhenIdDoesNotExist()
+    {
+        var response = await _client.DeleteAsync("/api/tasks/99999");
+        Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
+    }
 }
