@@ -19,7 +19,7 @@ public class Program
         );
 
 
-// 🔹 Controllers
+
         builder.Services.AddControllers();
 
         builder.Services.AddHybridCache(options =>
@@ -31,13 +31,12 @@ public class Program
             };
         });
 
-// 🔹 Swagger/OpenAPI
+
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "IczTask API", Version = "v1" });
 
-            // 🔹 Přidání podpory Bearer tokenu
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 Description = "JWT Authorization header using the Bearer scheme. Example: \"Bearer {token}\"",
@@ -95,18 +94,6 @@ public class Program
             });
 
         builder.Services.AddAuthorization();
-
-        builder.Services.AddCors(options =>
-        {
-            options.AddPolicy("AllowLocalhost", x =>
-            {
-                x.WithOrigins("https://localhost")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
-            });
-        });
-
 
         var app = builder.Build();
 
