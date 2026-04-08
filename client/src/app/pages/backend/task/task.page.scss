@@ -7,5 +7,19 @@
 }
 
 .toolbar mat-form-field {
-  min-width: 240px;
+  min-width: min(240px, 100%);
+  flex: 1 1 200px;
+}
+
+.table-scroll {
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+.tasks-table {
+  min-width: max-content;
+  width: 100%;
 }

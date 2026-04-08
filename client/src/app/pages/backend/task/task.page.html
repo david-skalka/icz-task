@@ -17,7 +17,8 @@
   </button>
 </div>
 
-<table mat-table [dataSource]="items" class="mat-elevation-z8">
+<div class="table-scroll mat-elevation-z8">
+<table mat-table [dataSource]="items" class="tasks-table">
 
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef> ID </th>
@@ -54,3 +55,4 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
 </table>
+</div>
