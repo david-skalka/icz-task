@@ -71,7 +71,7 @@ public class TaskTests
     public async System.Threading.Tasks.Task Create()
     {
         var defaultPage = await _client.PostAsJsonAsync("/api/tasks",
-            new Task { Name = "Task2", Description = "654321456", Finished = false });
+            new Task { Name = "Task2", Description = "654321456", Done = false });
         defaultPage.EnsureSuccessStatusCode();
     }
 
@@ -82,7 +82,7 @@ public class TaskTests
     public async System.Threading.Tasks.Task Update()
     {
         var defaultPage = await _client.PutAsJsonAsync("/api/tasks",
-            new Task { Id = 2, Name = "Task2", Description = "654321456", Finished = false });
+            new Task { Id = 2, Name = "Task2", Description = "654321456", Done = false });
         defaultPage.EnsureSuccessStatusCode();
     }
 

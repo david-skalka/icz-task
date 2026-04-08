@@ -26,7 +26,7 @@ namespace IczTask.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("Finished")
+                    b.Property<bool>("Done")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")

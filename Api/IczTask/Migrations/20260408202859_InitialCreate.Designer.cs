@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IczTask.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260408201129_ChangeCollumnTaskDescription")]
-    partial class ChangeCollumnTaskDescription
+    [Migration("20260408202859_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,7 +29,7 @@ namespace IczTask.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("Finished")
+                    b.Property<bool>("Done")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")

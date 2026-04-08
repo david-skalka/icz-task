@@ -37,7 +37,7 @@ import { Task, TaskApiService } from '../../../api-client';
           </mat-form-field>
         </div>
         <div>
-          <mat-checkbox formControlName="finished">Finished</mat-checkbox>
+          <mat-checkbox formControlName="done">Done</mat-checkbox>
         </div>
       </mat-dialog-content>
       <mat-dialog-actions align="end">
@@ -68,7 +68,7 @@ export class TaskEditDialog {
       id: [null as number | null],
       name: ['', [Validators.required, Validators.minLength(5)]],
       description: ['', []],
-      finished: [false]
+      done: [false]
     });
     this.form.patchValue(this.data ?? {});
   }
@@ -78,7 +78,7 @@ export class TaskEditDialog {
     const payload = this.form.getRawValue() as Task;
 
     const request$ =
-      payload.id != null ? this.api.apiTasksPut(payload) : this.api.apiTasksPost({name: payload.name, description: payload.description, finished: payload.finished});
+      payload.id != null ? this.api.apiTasksPut(payload) : this.api.apiTasksPost({name: payload.name, description: payload.description, done: payload.done});
 
     request$.subscribe({
       next: () => this.dialogRef.close(true),

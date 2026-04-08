@@ -14,5 +14,5 @@ public class Task
 
     [MaxLength(255)] public string? Description { get; set; } = string.Empty;
 
-    public bool Finished { get; set; }
+    public bool Done { get; set; }
 }

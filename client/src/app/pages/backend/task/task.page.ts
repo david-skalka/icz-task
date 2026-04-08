@@ -38,7 +38,7 @@ export class TaskPage implements OnInit {
   private dialog = inject(MatDialog);
   private loadingService = inject(LoadingService);
 
-  displayedColumns: string[] = ['name', 'description', 'finished', 'actions'];
+  displayedColumns: string[] = ['name', 'description', 'done', 'actions'];
   items: Task[] = [];
   nameFilter = '';
 

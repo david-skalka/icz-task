@@ -8,9 +8,9 @@ public class DefaultSeeder : ISeeder
 {
     protected virtual List<Task> Tasks =>
     [
-        new() { Id = 1, Name = "admin", Description = "a5f8e89441b090fcdefb5664c00beb82950e8157", Finished = true },
-        new() { Id = 2, Name = "task2", Description = "f47f85345dc0cf18182113d4663fef15ae458ac0", Finished = false },
-        new() { Id = 3, Name = "task3", Description = "f47f85345dc0cf18182113d4663fef15ae458ac0", Finished = false }
+        new() { Id = 1, Name = "admin", Description = "a5f8e89441b090fcdefb5664c00beb82950e8157", Done = true },
+        new() { Id = 2, Name = "task2", Description = "f47f85345dc0cf18182113d4663fef15ae458ac0", Done = false },
+        new() { Id = 3, Name = "task3", Description = "f47f85345dc0cf18182113d4663fef15ae458ac0", Done = false }
     ];
 
 
