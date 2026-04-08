@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -53,16 +53,17 @@ import { Task, TaskApiService } from '../../../api-client';
   `
 })
 export class UserEditDialog {
+  
+  private fb = inject(FormBuilder);
+  private api = inject(TaskApiService);
+  public dialogRef = inject(MatDialogRef<UserEditDialog>);
+  public data = inject<Task | undefined>(MAT_DIALOG_DATA);
+  
   errors: string[] = [];
 
   form: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    public dialogRef: MatDialogRef<UserEditDialog>,
-    private api: TaskApiService,
-    @Inject(MAT_DIALOG_DATA) public data: Task | undefined
-  ) {
+  constructor() {
     this.form = this.fb.group({
       id: [null as number | null],
       name: ['', [Validators.required]],

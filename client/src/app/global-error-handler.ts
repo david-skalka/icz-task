@@ -7,8 +7,8 @@ import Swal from 'sweetalert2';
 export class GlobalErrorHandler implements ErrorHandler {
   private logger = inject(NGXLogger);
 
-  handleError(error: any): void {
-    const err = error.rejection || error;
+  handleError(error: unknown): void {
+    const err = (error as { rejection?: unknown }).rejection || error;
 
     this.logger.error('Global error handler:', err);
 
