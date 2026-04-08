@@ -14,6 +14,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { finalize } from 'rxjs';
+import { LoadingService } from '../../../services/loading.service';
 
 @Component({
   selector: 'app-user-page',
@@ -36,8 +38,9 @@ import { MatInputModule } from '@angular/material/input';
 export class TaskPage implements OnInit {
   private api = inject(TaskApiService);
   private dialog = inject(MatDialog);
-private router = inject(Router);
- private snackBar = inject(MatSnackBar);
+  private router = inject(Router);
+  private snackBar = inject(MatSnackBar);
+  private loadingService = inject(LoadingService);
 
   displayedColumns: string[] = ['id', 'name', 'description', 'finished', 'actions'];
   items: Task[] = [];
@@ -48,7 +51,11 @@ private router = inject(Router);
   }
 
   loadData() {
-    this.api.apiTasksGet(this.nameFilter).subscribe(data => (this.items = data));
+    this.loadingService.show();
+    this.api
+      .apiTasksGet(this.nameFilter)
+      .pipe(finalize(() => this.loadingService.hide()))
+      .subscribe((data) => (this.items = data));
   }
 
   add() {
@@ -81,7 +88,11 @@ private router = inject(Router);
 
   dialogRef.afterClosed().subscribe(result => {
     if (result) {
-      this.api.apiTasksIdDelete(user.id!).subscribe(() => this.loadData());
+      this.loadingService.show();
+      this.api
+        .apiTasksIdDelete(user.id!)
+        .pipe(finalize(() => this.loadingService.hide()))
+        .subscribe(() => this.loadData());
     }
   });
 

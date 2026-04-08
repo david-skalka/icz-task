@@ -1,0 +1,12 @@
+.app-bar {
+  display: flex;
+  align-items: center;
+}
+
+.app-bar-spacer {
+  flex: 1 1 auto;
+}
+
+.app-bar-spinner {
+  --mdc-circular-progress-active-indicator-color: rgba(255, 255, 255, 0.9);
+}

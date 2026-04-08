@@ -1,5 +1,13 @@
 <mat-toolbar color="primary" class="app-bar">
-    <span class="app-bar-title">IctTaskClient</span>
+  <span class="app-bar-title">IctTaskClient</span>
+  <span class="app-bar-spacer"></span>
+  @if (loadingService.loading()) {
+    <mat-progress-spinner
+      class="app-bar-spinner"
+      mode="indeterminate"
+      diameter="32"
+    />
+  }
 </mat-toolbar>
 
 <main class="app-main">
