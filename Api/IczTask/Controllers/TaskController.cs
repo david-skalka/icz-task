@@ -30,11 +30,14 @@ public class TaskController(
     [Authorize]
     public async Task<ActionResult<TaskEntity>> Update([FromBody] TaskEntity task, CancellationToken cancellationToken)
     {
-        var retD = dbContext.Tasks.Update(task).Entity;
+        var existing = await dbContext.Tasks.FirstOrDefaultAsync(x => x.Id == task.Id, cancellationToken);
+        if (existing is null) return NotFound();
+
+        dbContext.Entry(existing).CurrentValues.SetValues(task);
         await dbContext.SaveChangesAsync(cancellationToken);
         await cache.RemoveByTagAsync(TaskCacheTag, cancellationToken);
-        logger.LogInformation("Byl UPRAVEN úkol číslo: {TaskId}", retD.Id);
-        return retD;
+        logger.LogInformation("Byl UPRAVEN úkol číslo: {TaskId}", existing.Id);
+        return existing;
     }
 
     [HttpGet("{id:int}")]

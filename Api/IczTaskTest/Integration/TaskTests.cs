@@ -88,6 +88,15 @@ public class TaskTests
         defaultPage.EnsureSuccessStatusCode();
     }
 
+    [Test]
+    [Property("Seeder", "IczTaskTest.Integration.Seeders.DefaultSeeder")]
+    [Property("MockUser", "admin;Admin")]
+    public async System.Threading.Tasks.Task Update_NotFound_WhenIdDoesNotExist()
+    {
+        var response = await _client.PutAsJsonAsync("/api/tasks",
+            new Task { Id = 99999, Name = "NoSuch", Description = null, Done = false });
+        Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
+    }
 
     [Test]
     [Property("Seeder", "IczTaskTest.Integration.Seeders.DefaultSeeder")]
