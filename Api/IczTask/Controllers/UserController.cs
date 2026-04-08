@@ -8,7 +8,7 @@ namespace IczTask.Controllers;
 public class UserController : ControllerBase
 {
     [HttpGet("me")]
-    [Authorize(Roles = "Admin,Game")]
+    [Authorize]
     public string? Me()
     {
         return User.Identity?.Name;
