@@ -14,12 +14,6 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.Configure<TaskSettings>(
-            builder.Configuration.GetSection("TaskSettings")
-        );
-
-
-
         builder.Services.AddControllers();
 
         builder.Services.AddHybridCache(options =>
@@ -96,8 +90,6 @@ public class Program
         builder.Services.AddAuthorization();
 
         var app = builder.Build();
-
-        app.UseCors("AllowLocalhost");
 
         app.UseDefaultFiles();
         app.UseStaticFiles();

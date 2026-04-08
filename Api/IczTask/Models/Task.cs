@@ -12,7 +12,7 @@ public class Task
     public string Name { get; init; } = string.Empty;
 
 
-    [MaxLength(255)] public string? Description { get; set; } = string.Empty;
+    [MaxLength(255)] public string? Description { get; set; }
 
     public bool Done { get; set; }
 }

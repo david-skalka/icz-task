@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Hybrid;
-using Microsoft.Extensions.Logging;
 using TaskEntity = IczTask.Models.Task;
 
 namespace IczTask.Controllers;
@@ -17,7 +16,7 @@ public class TaskController(
     private const string TaskCacheTag = "tasks";
 
     [HttpPost]
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public async Task<ActionResult<TaskEntity>> Create([FromBody] TaskEntity task, CancellationToken cancellationToken)
     {
         var retD = dbContext.Tasks.Add(task).Entity;
@@ -28,7 +27,7 @@ public class TaskController(
     }
 
     [HttpPut]
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public async Task<ActionResult<TaskEntity>> Update([FromBody] TaskEntity task, CancellationToken cancellationToken)
     {
         var retD = dbContext.Tasks.Update(task).Entity;
@@ -39,7 +38,7 @@ public class TaskController(
     }
 
     [HttpGet("{id:int}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public async Task<ActionResult<TaskEntity>> GetById(int id, CancellationToken cancellationToken)
     {
         var entity = await cache.GetOrCreateAsync(
@@ -51,7 +50,7 @@ public class TaskController(
     }
 
     [HttpGet]
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public async Task<ActionResult<List<TaskEntity>>> GetAll(
         [FromQuery] string? name,
         CancellationToken cancellationToken)
@@ -68,7 +67,7 @@ public class TaskController(
     }
 
     [HttpDelete("{id:int}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
     {
         var entity = await dbContext.Tasks.SingleAsync(x => x.Id == id, cancellationToken);
