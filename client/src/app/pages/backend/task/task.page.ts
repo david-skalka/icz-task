@@ -48,7 +48,7 @@ private router = inject(Router);
   }
 
   loadData() {
-    this.api.apiTaskGet(this.nameFilter).subscribe(data => (this.items = data));
+    this.api.apiTasksGet(this.nameFilter).subscribe(data => (this.items = data));
   }
 
   add() {
@@ -81,7 +81,7 @@ private router = inject(Router);
 
   dialogRef.afterClosed().subscribe(result => {
     if (result) {
-      this.api.apiTaskIdDelete(user.id!).subscribe(() => this.loadData());
+      this.api.apiTasksIdDelete(user.id!).subscribe(() => this.loadData());
     }
   });
 

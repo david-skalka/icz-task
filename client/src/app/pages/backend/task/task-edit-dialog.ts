@@ -8,6 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Task, TaskApiService } from '../../../api-client';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-user-edit-dialog',
@@ -81,15 +82,17 @@ export class UserEditDialog {
     }
     const request =
       user.id != null
-        ? this.api.apiTaskPut(payload)
-        : this.api.apiTaskPost(payload);
+        ? this.api.apiTasksPut(payload)
+        : this.api.apiTasksPost(payload);
     request.subscribe({
       next: () => this.dialogRef.close(true),
       error: (err) => {
         if (err.status === 400) {
           const errorDetails = err.error?.errors;
           this.errors = Object.values(errorDetails).flat() as string[];
-
+          
+        } else {
+          throw err;
         }
       }
     });
