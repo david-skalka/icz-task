@@ -12,7 +12,7 @@
 export interface Task { 
     id?: number;
     name: string;
-    description: string;
+    description?: string | null;
     finished?: boolean;
 }
 

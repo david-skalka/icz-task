@@ -1,4 +1,3 @@
-// app.config.base.ts
 import { APP_INITIALIZER, ApplicationConfig, ErrorHandler, importProvidersFrom, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, Router } from '@angular/router';
 import { routes } from './app.routes';
@@ -19,7 +18,7 @@ export function createBaseAppConfig(basePath: string): ApplicationConfig {
       provideBrowserGlobalErrorListeners(),
       provideZoneChangeDetection({ eventCoalescing: true }),
       provideRouter(routes),
-      { provide: LOCALE_ID, useValue: 'cs' },
+      { provide: LOCALE_ID, useValue: 'en' },
       provideHttpClient(),
       importProvidersFrom(
         ApiModule.forRoot(() => new Configuration({
@@ -72,7 +71,4 @@ export function createBaseAppConfig(basePath: string): ApplicationConfig {
 
 
 export const appConfigDefault = createBaseAppConfig('');
-
-
-
 
