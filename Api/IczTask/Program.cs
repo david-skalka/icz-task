@@ -65,6 +65,8 @@ public class Program
                 }
             );
 
+        // viz. REVIEW.md
+        // var jwtSection = builder.Configuration.GetSection(JwtOptions.SectionName);
         var jwtSection = builder.Configuration.GetSection("Jwt");
         builder.Services.Configure<JwtOptions>(jwtSection);
         var jwtOptions = jwtSection.Get<JwtOptions>()!;
